@@ -1,0 +1,16 @@
+{
+  "extends": "semantic-release-monorepo",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    ["@semantic-release/exec", {
+      "prepareCmd": "./mvnw -q versions:set -DnewVersion=${nextRelease.version} -DgenerateBackupPoms=false"
+    }],
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    ["@semantic-release/git", {
+      "assets": ["pom.xml", "CHANGELOG.md"],
+      "message": "chore(my-spring-boot): ${nextRelease.version}\n\n${nextRelease.notes}"
+    }],
+    "@semantic-release/github"
+  ]
+}
